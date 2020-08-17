@@ -11,6 +11,7 @@ The Flow:
   
 Files:
   StudioFlow_Alerts.json: exported flow to be imported as new flow
-  Postman_StudioLaunch_Alerts: cURL command to execute flow
+  Postman_StudioLaunch_Alerts.txt: cURL command to execute flow
+  
 
 THIS FLOW IS UNTESTED
