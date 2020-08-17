@@ -1,0 +1,6 @@
+curl --location --request POST 'https://studio.twilio.com/v1/Flows/FW3826b1298b1b47b5e572043636fc92d6/Executions' \
+--header 'Authorization: Basic QUNmNWFiMDIyODhmNjhlNzI3NzFhODc0YzYzYmEyNjFjNzoxYjMzYTJkNGQzODU5MjUyOGJmNDA1OTRhZjc0ZjE3MQ==' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'To=+13173704984' \
+--data-urlencode 'From=+15134962110' \
+--data-urlencode 'Parameters={"name":"Tim", "phone2": "+15135025654", "name2":"Dylan"}'

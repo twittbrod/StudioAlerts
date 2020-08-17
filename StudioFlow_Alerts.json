@@ -1,0 +1,125 @@
+{
+  "description": "A New Flow",
+  "states": [
+    {
+      "name": "Trigger",
+      "type": "trigger",
+      "transitions": [
+        {
+          "event": "incomingMessage"
+        },
+        {
+          "event": "incomingCall"
+        },
+        {
+          "next": "call_user_1",
+          "event": "incomingRequest"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 0,
+          "y": 0
+        }
+      }
+    },
+    {
+      "name": "call_user_1",
+      "type": "make-outgoing-call-v2",
+      "transitions": [
+        {
+          "next": "say_play_1",
+          "event": "answered"
+        },
+        {
+          "event": "busy"
+        },
+        {
+          "next": "http_1",
+          "event": "noAnswer"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "machine_detection_speech_threshold": "2400",
+        "detect_answering_machine": false,
+        "send_digits": "",
+        "sip_auth_username": "",
+        "offset": {
+          "x": 260,
+          "y": 190
+        },
+        "recording_status_callback": "",
+        "sip_auth_password": "",
+        "recording_channels": "mono",
+        "timeout": 60,
+        "machine_detection": "Enable",
+        "trim": "true",
+        "record": false,
+        "machine_detection_speech_end_threshold": "1200",
+        "machine_detection_timeout": "30",
+        "from": "{{flow.channel.address}}",
+        "to": "{{contact.channel.address}}",
+        "machine_detection_silence_timeout": "5000"
+      }
+    },
+    {
+      "name": "say_play_1",
+      "type": "say-play",
+      "transitions": [
+        {
+          "event": "audioComplete"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": -49,
+          "y": 433
+        },
+        "loop": 1,
+        "say": "You have an alert."
+      }
+    },
+    {
+      "name": "http_1",
+      "type": "make-http-request",
+      "transitions": [
+        {
+          "event": "success"
+        },
+        {
+          "event": "failed"
+        }
+      ],
+      "properties": {
+        "offset": {
+          "x": 350,
+          "y": 440
+        },
+        "method": "POST",
+        "content_type": "application/x-www-form-urlencoded;charset=utf-8",
+        "parameters": [
+          {
+            "value": "{{flow.data.phone2}}",
+            "key": "To"
+          },
+          {
+            "value": "{{flow.channel.address}}",
+            "key": "From"
+          },
+          {
+            "value": "{\"name\":\"{{flow.data.name2}}\", \"phone2\": \"{{flow.data.flow3}}\", \"name2\":\"{{flow.data.name3}}\"}",
+            "key": "Parameters"
+          }
+        ],
+        "url": "https://ACf5ab02288f68e72771a874c63ba261c7:1b33a2d4d38592528bf40594af74f171@studio.twilio.com/v1/Flows/FW3826b1298b1b47b5e572043636fc92d6/Executions"
+      }
+    }
+  ],
+  "initial_state": "Trigger",
+  "flags": {
+    "allow_concurrent_calls": true
+  }
+}
